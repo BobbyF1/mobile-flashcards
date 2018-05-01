@@ -12,7 +12,7 @@ export function loadDecks (decks) {
 export function initialLoadDecks () {
     return (dispatch) => {
       getDecks()
-        .then((decks) => {  dispatch(loadDecks(decks) ) } )
+        .then((decks) => { dispatch(loadDecks(decks) ) } )
       }
 }
 
