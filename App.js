@@ -1,14 +1,38 @@
-import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import React , { Component } from 'react';
+import { StyleSheet, Text, View, TouchableOpacity, StatusBar } from 'react-native';
+import { clearAllData, saveDeckTitle, getDecks, getDeck } from './utils/api'
+import { purple, white } from './utils/colors'
+import decks from './reducers'
+import { Provider } from 'react-redux'
+import { AsyncStorage } from 'react-native'
+import { createStore } from 'redux'
+import { Constants } from 'expo'
+import { initialLoadDecks } from './actions'
+import { connect } from 'react-redux'
 
-export default class App extends React.Component {
+function LocalStatusBar ({backgroundColor, ...props}) {
+  return (
+    <View style={{ backgroundColor, height: Constants.statusBarHeight }}>
+      <StatusBar translucent backgroundColor={backgroundColor} {...props} />
+    </View>
+  )
+}
+
+class App extends Component {
+
+  componentDidMount(){
+    this.props.initialDataLoad()
+  }
+
   render() {
+
     return (
-      <View style={styles.container}>
-        <Text>Open up App.js to start working on your app!</Text>
-        <Text>Changes you make will automatically reload.</Text>
-        <Text>Shake your phone to open the developer menu.</Text>
+      <Provider store={createStore(decks)}>
+      <View style={{flex: 1}}>
+          <LocalStatusBar backgroundColor={purple} barStyle="light-content" />
+          <Text>Open up App.js to start working on your app!!!!</Text>
       </View>
+      </Provider>
     );
   }
 }
@@ -20,4 +44,31 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
+
+  AndroidSubmitBtn: {
+    backgroundColor: purple,
+    padding: 10,
+    paddingLeft: 30,
+    paddingRight: 30,
+    height: 45,
+    borderRadius: 2,
+    alignSelf: 'flex-end',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+
 });
+
+
+// function mapStateToProps({decks}){
+//   return {}
+// }
+
+// function mapDispatchToProps(dispatch) {
+//     return {
+//       initialDataLoad: () => dispatch(initialLoadDecks())
+//   }
+// }
+
+export default connect()(App)
+

@@ -1,0 +1,33 @@
+
+test = () => {
+
+  //clearAllData()
+
+//  getDecks()
+//    .then(console.log("Initial state after clearing:"))
+ //   .then((decks) => { console.log(decks ? decks : "nowt on initial check") } )
+ 
+  //console.log("Adding a test deck")
+  saveDeckTitle("TestDeck")
+
+ 
+  //console.log("Adding a second test deck")
+  saveDeckTitle("TestDeckNo2")
+
+
+  //console.log("Adding a second test deck again!")
+  saveDeckTitle("TestDeckNo2123")
+
+  getDecks()
+//    .then(console.log("State after adding deck:"))
+    .then((decks) => { console.log(decks) } )
+
+  // console.log("getDeck")
+  // console.log(getDeck("TestDeck"))
+  // console.log("getDeck (invalid)")
+  // console.log(getDeck("TestDeck123"))
+
+  
+//  this.setState(getDecks())
+}
+
