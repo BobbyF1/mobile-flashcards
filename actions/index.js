@@ -4,15 +4,16 @@ export const INITIAL_LOAD_DECKS = 'INITIAL_LOAD_DECKS'
 
 export function loadDecks (decks) {
   return {
-    type: LOAD_DECKS ,
+    type: INITIAL_LOAD_DECKS ,
     decks
   }
 }
 
 export function initialLoadDecks () {
     return (dispatch) => {
-      getDecks()
+      return getDecks()
         .then((decks) => { dispatch(loadDecks(decks) ) } )
+        .catch((error) => { console.log(error) } )
       }
 }
 
