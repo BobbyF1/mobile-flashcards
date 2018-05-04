@@ -33,6 +33,11 @@ const Tabs = TabNavigator({
   }
 })
 
+///////////////////////setup test data
+  saveDeckTitle("TestDeck")
+  saveDeckTitle("TestDeckNo2")
+///////////////////////setup test data
+
 
 export default class App extends Component {
   render() {

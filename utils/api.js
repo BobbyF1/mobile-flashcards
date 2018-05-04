@@ -25,5 +25,10 @@ export function saveDeckTitle(title){
 }
 
 export function getDecks() {
-  return AsyncStorage.getItem(DECKS_STORAGE_KEY);
+  return AsyncStorage.getItem(DECKS_STORAGE_KEY)
+  	.then(formatCalendarResults)
 } 
+
+export function formatCalendarResults (results) {
+  return JSON.parse(results)
+}
