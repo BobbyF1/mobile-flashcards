@@ -12,6 +12,7 @@ import Decks from './components/Decks'
 import DeckView from './components/DeckView'
 import { TabNavigator, StackNavigator } from 'react-navigation'
 import thunk from 'redux-thunk';
+import AddCardView from './components/AddCardView'
 
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
@@ -58,6 +59,15 @@ const MainNavigator = StackNavigator({
         backgroundColor: purple,
       }
     }
+  },
+  AddCardView: {
+    screen: AddCardView,
+    navigationOptions: {
+      headerTintColor: white,
+      headerStyle: {
+        backgroundColor: purple,
+      }
+    }
   }
 })
 
@@ -72,6 +82,7 @@ export default class App extends Component {
     return (
       <Provider store={store}>
       <View style={{flex: 1}}>
+          <AppStatusBar backgroundColor={purple} barStyle="light-content" />
           <MainNavigator />
       </View>
       </Provider>

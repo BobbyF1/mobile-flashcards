@@ -20,7 +20,7 @@ class Decks extends Component {
 			<View style={styles.item} >
 				{decks && decks.map( (deck) => {
 					return (
-						<TouchableOpacity
+						<TouchableOpacity key={deck.title}
 				            onPress={() => this.props.navigation.navigate(
 				              'DeckView',
 				              { entryDeck: deck.title }

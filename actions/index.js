@@ -17,3 +17,6 @@ export function initialLoadDecks () {
       }
 }
 
+export function addCardToDeck(deckTitle, question){
+	
+}
