@@ -9,11 +9,20 @@ import { createStore, applyMiddleware, compose } from 'redux'
 import { Constants } from 'expo'
 import { connect } from 'react-redux'
 import Decks from './components/Decks'
+import DeckView from './components/DeckView'
 import { TabNavigator, StackNavigator } from 'react-navigation'
 import thunk from 'redux-thunk';
 
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+
+function AppStatusBar ({backgroundColor, ...props}) {
+  return (
+    <View style={{ backgroundColor, height: Constants.statusBarHeight }}>
+      <StatusBar translucent backgroundColor={backgroundColor} {...props} />
+    </View>
+  )
+}
 
 
 const configureStore = () => {
@@ -29,7 +38,26 @@ const store = configureStore();
 
 const Tabs = TabNavigator({
   home: {
-    screen: Decks
+    screen: Decks,
+    navigationOptions: {
+    tabBarLabel: 'Decks',
+    tabBarIcon: ({ tintColor }) => <Ionicons name='ios-bookmarks' size={30} color={tintColor} />
+    },
+  }
+})
+
+const MainNavigator = StackNavigator({
+  Home: {
+    screen: Tabs,
+  },
+  DeckView: {
+    screen: DeckView,
+    navigationOptions: {
+      headerTintColor: white,
+      headerStyle: {
+        backgroundColor: purple,
+      }
+    }
   }
 })
 
@@ -44,7 +72,7 @@ export default class App extends Component {
     return (
       <Provider store={store}>
       <View style={{flex: 1}}>
-          <Tabs />
+          <MainNavigator />
       </View>
       </Provider>
     );

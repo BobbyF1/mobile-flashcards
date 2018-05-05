@@ -3,6 +3,7 @@ import { View, Text, StyleSheet, Platform, TouchableOpacity } from 'react-native
 import { connect } from 'react-redux'
 import { AppLoading } from 'expo'
 import { initialLoadDecks } from '../actions/'
+import { white  } from '../utils/colors'
 import Deck from './Deck'
 
 class Decks extends Component {
@@ -14,27 +15,44 @@ class Decks extends Component {
 	render(){
 
 		const {decks} = this.props
-		if(decks && decks.length > 0){
-			console.log("----------------------")
-			console.log(decks)
-			console.log(decks[0])
-			console.log(decks[1])
-			console.log(Object.keys(decks[0]))
-			console.log(decks[0].title)
-			console.log(decks[1].title)
-		}
 
 		return (
-			<View>
-				<Text>Start</Text>
+			<View style={styles.item} >
 				{decks && decks.map( (deck) => {
-					return <Deck deck={deck} key={deck.title}/>
+					return (
+						<TouchableOpacity
+				            onPress={() => this.props.navigation.navigate(
+				              'DeckView',
+				              { entryDeck: deck.title }
+				            )}
+				          >						
+				          <Deck deck={deck} key={deck.title}/>
+				        </TouchableOpacity>
+					)
 				})}
-				<Text>Done</Text>				
 			</View>
 		)
 	}
 }
+
+const styles = StyleSheet.create({
+  item: {
+    backgroundColor: white,
+    borderRadius: 2,
+    padding: 20,
+    marginLeft: 10,
+    marginRight: 10,
+    marginTop: 17,
+    justifyContent: 'center',
+    shadowRadius: 3,
+    shadowOpacity: 0.8,
+    shadowColor: 'rgba(0, 0, 0, 0.24)',
+    shadowOffset: {
+      width: 0,
+      height: 3
+    	}
+	},
+})
 
 function mapStateToProps (state, { navigation }) {
 
