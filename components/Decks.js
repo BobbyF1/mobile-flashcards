@@ -83,12 +83,6 @@ const styles = StyleSheet.create({
       height: 3
     	}
 	},
-	container: {
-		justifyContent: 'center',
-		marginTop: 50,
-		padding: 20,
-		backgroundColor: white,
-	},
 	submitBtn: {
 		padding: 10,
 		paddingLeft: 30,

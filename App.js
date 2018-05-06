@@ -14,6 +14,7 @@ import  NewDeckView from './components/NewDeckView'
 import { TabNavigator, StackNavigator } from 'react-navigation'
 import thunk from 'redux-thunk';
 import AddCardView from './components/AddCardView'
+import QuizView from './components/QuizView'
 
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
@@ -79,7 +80,15 @@ const MainNavigator = StackNavigator({
       }
     }
   },
-
+   QuizView: {
+    screen: QuizView,
+    navigationOptions: {
+      headerTintColor: white,
+      headerStyle: {
+        backgroundColor: purple,
+      }
+    }
+  },
 })
 
 ///////////////////////setup test data

@@ -19,36 +19,32 @@ class DeckView extends Component {
 				<View style={styles.item}>
 					<Text style={{fontSize: 32}}>{this.props.deck && this.props.deck.title}</Text>
 					<Text style={{fontSize: 16, color: gray}}>{this.props.deck 
-                ? this.props.deck.questions.length + " card" +  (this.props.deck.questions.length > 1 ? "s" : "")
+                ? this.props.deck.questions.length + " card" +  (this.props.deck.questions.length !== 1 ? "s" : "")
                 : "0 cards" }</Text>
 				</View>
 	            <View>
 				    <TouchableOpacity
 				      	style={[styles.submitBtn, {backgroundColor: white}]}
-		            	onPress={this.onAddCard}
-		            >
+		            	onPress={this.onAddCard} >
 				        <Text style={styles.submitBtnText}>Add Card</Text>
-				    </TouchableOpacity>            	
-				    <TouchableOpacity
-				      style={[styles.submitBtn, {backgroundColor: black}]}
-				      onPress={this.onStartQuiz}
-				      >
-				        <Text style={[styles.submitBtnText, {color: white}]}>Start Quiz</Text>
-				    </TouchableOpacity>            	
+				    </TouchableOpacity> 
+            { this.props.deck.questions.length > 0 &&       	
+  				    <TouchableOpacity
+  				      style={[styles.submitBtn, {backgroundColor: black}]}
+  				      onPress={this.onStartQuiz} >
+  				        <Text style={[styles.submitBtnText, {color: white}]}>Start Quiz</Text>
+  				    </TouchableOpacity> }
 	            </View>
 	        </View>
 		)
 	}
 
 	onAddCard = () => {
-		this.props.navigation.navigate(
-              'AddCardView',
-              { entryDeck: this.props.deck.title }
-            )
+		this.props.navigation.navigate('AddCardView',{ entryDeck: this.props.deck.title })
 	}
 
 	onStartQuiz = () =>{
-
+    this.props.navigation.navigate('QuizView',{ entryDeck: this.props.deck.title })
 	}
 
 }
