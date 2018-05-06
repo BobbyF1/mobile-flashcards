@@ -40,7 +40,7 @@ export default function Deck (deckObject) {
               {deck.title}
             </Text>
             <Text style={{fontSize: 16, color: gray}}>
-              {deck.questions.length} cards
+              {deck.questions.length + " card" +  (deck.questions.length > 1 ? "s" : "")}
             </Text>
           </View>
         </View>

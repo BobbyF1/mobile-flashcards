@@ -72,8 +72,11 @@ const MainNavigator = StackNavigator({
 })
 
 ///////////////////////setup test data
+/*
   saveDeckTitle("TestDeck")
   saveDeckTitle("TestDeckNo2")
+  saveDeckTitle("Another List of Questions")
+*/
 ///////////////////////setup test data
 
 

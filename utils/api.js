@@ -24,6 +24,10 @@ export function saveDeckTitle(title){
   }))  
 }
 
+export function setDecks(decks){
+  return AsyncStorage.mergeItem(DECKS_STORAGE_KEY, JSON.stringify(decks))  
+}
+
 export function getDecks() {
   return AsyncStorage.getItem(DECKS_STORAGE_KEY)
   	.then(formatCalendarResults)

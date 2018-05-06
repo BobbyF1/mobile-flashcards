@@ -18,7 +18,9 @@ class DeckView extends Component {
 			<View style={styles.column}>
 				<View style={styles.item}>
 					<Text style={{fontSize: 32}}>{this.props.deck && this.props.deck.title}</Text>
-					<Text style={{fontSize: 16, color: gray}}>{this.props.deck ? this.props.deck.questions.length : 0 } cards</Text>
+					<Text style={{fontSize: 16, color: gray}}>{this.props.deck 
+                ? this.props.deck.questions.length + " card" +  (this.props.deck.questions.length > 1 ? "s" : "")
+                : "0 cards" }</Text>
 				</View>
 	            <View>
 				    <TouchableOpacity
@@ -96,8 +98,8 @@ const styles = StyleSheet.create({
 
 
 function mapStateToProps (state, { navigation }) {
-  const { entryDeck } = navigation.state.params
 
+  const { entryDeck } = navigation.state.params
   return {
     deck: state.decks[entryDeck],
   }

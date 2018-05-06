@@ -5,11 +5,20 @@ import { AppLoading } from 'expo'
 import { initialLoadDecks } from '../actions/'
 import { white  } from '../utils/colors'
 import Deck from './Deck'
+import { setDecks, saveDeckTitle } from '../utils/api'
 
 class Decks extends Component {
 
 	componentDidMount(){
 		this.props.initialDataLoad()
+	}
+
+	reset = () =>
+	{
+		setDecks({})
+		  saveDeckTitle("TestDeck")
+		  saveDeckTitle("TestDeckNo2")
+		  saveDeckTitle("Another List of Questions")
 	}
 
 	render(){
@@ -30,6 +39,13 @@ class Decks extends Component {
 				        </TouchableOpacity>
 					)
 				})}
+
+				    <TouchableOpacity
+				      onPress={this.reset}
+				      >
+				        <Text>Reset</Text>
+				    </TouchableOpacity>  
+
 			</View>
 		)
 	}
@@ -55,12 +71,10 @@ const styles = StyleSheet.create({
 })
 
 function mapStateToProps (state, { navigation }) {
-
-	    console.log(JSON.stringify(Object.values(state.decks)))
-	    return {
-	    	decks: Object.values(state.decks)
-	    }
-	}
+    return {
+    	decks: Object.values(state.decks)
+    }
+}
 
 function mapDispatchToProps (dispatch, { navigation }) {
     return {
