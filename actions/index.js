@@ -18,7 +18,7 @@ export function savedModifiedDecks (decks) {
 }
 
 export function initialLoadDecks () {
-    return (dispatch) => {
+  return (dispatch, getState) => {
       return getDecks()
         .then((decks) => { dispatch(loadDecks(decks) ) } )
         .catch((error) => { console.log(error) } )
@@ -34,4 +34,17 @@ export function addCardToDeck(deckTitle, newQuestion){
         .then(() => { dispatch(savedModifiedDecks(copiedDecks) ) } )
         .catch((error) => { console.log(error) } )
   }
+}
+
+export function addDeck(deckTitle){
+  return (dispatch, getState) => {
+    const copiedDecks = JSON.parse(JSON.stringify(getState().decks)); 
+    copiedDecks[deckTitle] = {
+      title: deckTitle,
+      questions: []
+    }
+    return setDecks(copiedDecks)
+        .then(() => { dispatch(savedModifiedDecks(copiedDecks) ) } )
+        .catch((error) => { console.log(error) } )
+  }  
 }

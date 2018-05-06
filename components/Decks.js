@@ -1,9 +1,9 @@
 import React, { Component } from 'react'
-import { View, Text, StyleSheet, Platform, TouchableOpacity } from 'react-native'
+import { ScrollView, View, Text, StyleSheet, Platform, TouchableOpacity } from 'react-native'
 import { connect } from 'react-redux'
 import { AppLoading } from 'expo'
 import { initialLoadDecks } from '../actions/'
-import { white  } from '../utils/colors'
+import { white, black, red  } from '../utils/colors'
 import Deck from './Deck'
 import { setDecks, saveDeckTitle } from '../utils/api'
 
@@ -21,32 +21,47 @@ class Decks extends Component {
 		  saveDeckTitle("Another List of Questions")
 	}
 
+	handleNewDeck = () => {
+		console.log("handleNewDeck")
+		this.props.navigation.navigate( 'NewDeckView')
+	}
+
 	render(){
 
 		const {decks} = this.props
 
 		return (
-			<View style={styles.item} >
-				{decks && decks.map( (deck) => {
-					return (
-						<TouchableOpacity key={deck.title}
-				            onPress={() => this.props.navigation.navigate(
-				              'DeckView',
-				              { entryDeck: deck.title }
-				            )}
-				          >						
-				          <Deck deck={deck} key={deck.title}/>
-				        </TouchableOpacity>
-					)
-				})}
+			<ScrollView>
+				<View style={styles.item} >
+					{decks && decks.map( (deck) => {
+						return (
+							<TouchableOpacity key={deck.title}
+					            onPress={() => this.props.navigation.navigate(
+					              'DeckView',
+					              { entryDeck: deck.title }
+					            )}
+					          >						
+					          <Deck deck={deck} key={deck.title}/>
+					        </TouchableOpacity>
+						)
+					})}
 
+					    <TouchableOpacity
+					      onPress={this.reset}
+					      >
+					        <Text>Reset</Text>
+					    </TouchableOpacity>  
+
+				</View>
+				<View>
 				    <TouchableOpacity
-				      onPress={this.reset}
+				      style={[styles.submitBtn, {backgroundColor: red}]}
+				      onPress={this.handleNewDeck}
 				      >
-				        <Text>Reset</Text>
+				        <Text style={[styles.submitBtnText, {color: white}]}>New Deck</Text>
 				    </TouchableOpacity>  
-
-			</View>
+				</View>
+			</ScrollView>
 		)
 	}
 }
@@ -67,6 +82,24 @@ const styles = StyleSheet.create({
       width: 0,
       height: 3
     	}
+	},
+	container: {
+		justifyContent: 'center',
+		marginTop: 50,
+		padding: 20,
+		backgroundColor: white,
+	},
+	submitBtn: {
+		padding: 10,
+		paddingLeft: 30,
+		paddingRight: 30,
+    	marginRight: 10,
+    	marginTop: 10,
+    	height: 45,
+		borderRadius: 2,
+		alignSelf: 'flex-end',
+		justifyContent: 'center',
+		alignItems: 'center',
 	},
 })
 

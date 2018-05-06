@@ -10,6 +10,7 @@ import { Constants } from 'expo'
 import { connect } from 'react-redux'
 import Decks from './components/Decks'
 import DeckView from './components/DeckView'
+import  NewDeckView from './components/NewDeckView'
 import { TabNavigator, StackNavigator } from 'react-navigation'
 import thunk from 'redux-thunk';
 import AddCardView from './components/AddCardView'
@@ -68,7 +69,17 @@ const MainNavigator = StackNavigator({
         backgroundColor: purple,
       }
     }
-  }
+  },
+   NewDeckView: {
+    screen:  NewDeckView,
+    navigationOptions: {
+      headerTintColor: white,
+      headerStyle: {
+        backgroundColor: purple,
+      }
+    }
+  },
+
 })
 
 ///////////////////////setup test data
