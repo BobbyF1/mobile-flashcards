@@ -1,10 +1,8 @@
 import React , { Component } from 'react';
-import { StyleSheet, Text, View, TouchableOpacity, StatusBar } from 'react-native';
-import { clearAllData, saveDeckTitle, getDecks, getDeck } from './utils/api'
+import { Text, View, TouchableOpacity, StatusBar } from 'react-native';
 import { purple, white } from './utils/colors'
 import decks from './reducers'
 import { Provider } from 'react-redux'
-import { AsyncStorage } from 'react-native'
 import { createStore, applyMiddleware, compose } from 'redux'
 import { Constants } from 'expo'
 import { connect } from 'react-redux'
@@ -16,7 +14,6 @@ import thunk from 'redux-thunk';
 import AddCardView from './components/AddCardView'
 import QuizView from './components/QuizView'
 
-
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
 function AppStatusBar ({backgroundColor, ...props}) {
@@ -26,7 +23,6 @@ function AppStatusBar ({backgroundColor, ...props}) {
     </View>
   )
 }
-
 
 const configureStore = () => {
     return createStore(
@@ -47,7 +43,26 @@ const Tabs = TabNavigator({
     tabBarIcon: ({ tintColor }) => <Ionicons name='ios-bookmarks' size={30} color={tintColor} />
     },
   }
+}, {
+  navigationOptions: {
+    header: null
+  },
+  tabBarOptions: {
+    activeTintColor: white ,
+    style: {
+      height: 56 + Constants.statusBarHeight,
+      backgroundColor: purple,
+      shadowColor: 'rgba(0, 0, 0, 0.24)',
+      shadowOffset: {
+        width: 0,
+        height: 3
+      },
+      shadowRadius: 6,
+      shadowOpacity: 1
+    }
+  }
 })
+
 
 const MainNavigator = StackNavigator({
   Home: {
@@ -90,15 +105,6 @@ const MainNavigator = StackNavigator({
     }
   },
 })
-
-///////////////////////setup test data
-/*
-  saveDeckTitle("TestDeck")
-  saveDeckTitle("TestDeckNo2")
-  saveDeckTitle("Another List of Questions")
-*/
-///////////////////////setup test data
-
 
 export default class App extends Component {
   render() {

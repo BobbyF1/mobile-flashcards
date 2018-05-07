@@ -16,13 +16,19 @@ class QuizView extends Component {
 	}
 
 	static navigationOptions = ({ navigation }) => {
-		console.log("navigationOptions")
-		console.log(navigation.state)
 		const { entryDeck } = navigation.state.params
 		return {
 			title: 'Quiz - ' + entryDeck
 		}
 	}
+
+  onDone = () => {
+    this.props.navigation.dispatch(NavigationActions.reset
+    	({index: 0,
+    		actions: [NavigationActions.navigate({ routeName: 'Home' })]
+    	})
+    	)
+  }
 
 	answeredCorrectly = () => {
 		this.setState( { correct: this.state.correct + 1,
@@ -36,7 +42,7 @@ class QuizView extends Component {
 
 	render(){
 		return (
-	      <View style={styles.questionView}>
+	      <View >
 	      	{ this.state.questionNo <= this.props.deck.questions.length 
 	      	?
 		      	<QuizQA 
@@ -47,7 +53,26 @@ class QuizView extends Component {
 		      		questionNumber={this.state.questionNo}
 		      		questions={this.props.deck.questions.length}/>
 		    :
-		    	<Text>Finished</Text>
+		    <View style={styles.column}>
+					<View style={styles.item}>
+						<Text style={{fontSize: 16, color: red}}>
+								Your score!
+	               		</Text>
+						<Text style={{fontSize: 32}}>
+								{this.props.deck && this.props.deck.title}
+						</Text>
+						<Text style={{fontSize: 16, color: gray}}>
+								{this.state.correct + " / " +  (this.props.deck.questions.length)}
+	               		</Text>
+					</View>
+					<View>
+					<TouchableOpacity
+				      	style={[styles.submitBtn, {backgroundColor: red}]}
+		            	onPress={this.onDone} >
+				        <Text style={styles.submitBtnText}>Done</Text>
+				    </TouchableOpacity> 
+				    </View>
+		    </View>
 			}
 	      </View>
 		)
@@ -56,17 +81,41 @@ class QuizView extends Component {
 
 const styles = StyleSheet.create({
 
-    btnNext:{
-        backgroundColor: '#f67565',
-        padding: 5,
-        borderRadius: 3,
-        height: 48,
-        margin: 45,
-        width: 100
+
+  item: {
+  	height: 100,
+    backgroundColor: white,
+    borderRadius: 2,
+    padding: 20,
+    marginLeft: 10,
+    marginRight: 10,
+    marginTop: 50,
+    justifyContent: 'center',
+    alignItems: 'center',
+    shadowRadius: 3,
+    shadowOpacity: 0.8,
+    shadowColor: 'rgba(0, 0, 0, 0.24)',
+    shadowOffset: {
+      width: 0,
+      height: 3
     },
-    numberCards:{
-        padding: 50
-    }
+  },
+  column: {
+    flexDirection: 'column',
+    flex: 1,
+    alignItems: 'center',
+  }, 
+  submitBtn: {
+    padding: 10,
+    paddingLeft: 30,
+    paddingRight: 30,
+    marginTop: 100,
+    height: 45,
+    borderRadius: 2,
+    alignSelf: 'flex-end',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
 });
 
 
