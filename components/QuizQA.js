@@ -20,9 +20,6 @@ const styles = StyleSheet.create({
       marginTop: 20,
       textAlign: 'center'
     },
-
-
-
     questionView: {
         display: 'flex',
         flex: 1,
@@ -123,8 +120,6 @@ class QuizQA extends Component {
     )
   }
 }
-
-
 
 export default connect(
   null,

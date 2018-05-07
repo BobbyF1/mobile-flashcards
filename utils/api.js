@@ -12,7 +12,7 @@ import { AsyncStorage } from 'react-native'
 DECKS_STORAGE_KEY = 'mobile-flashcards:decksAndCards'
 
 export function clearAllData(){
-  AsyncStorage.clear()
+  return AsyncStorage.clear()
 }
 
 export function saveDeckTitle(title){

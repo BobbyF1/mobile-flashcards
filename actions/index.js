@@ -1,7 +1,15 @@
-import { getDecks, setDecks } from '../utils/api'
+import { getDecks, setDecks, clearAllData } from '../utils/api'
 
 export const INITIAL_LOAD_DECKS = 'INITIAL_LOAD_DECKS'
 export const SAVED_MODIFIED_DECKS = 'SAVED_MODIFIED_DECKS'
+export const RESET_DECKS = 'RESET_DECKS'
+
+export function resetStoreDecks() {
+  return {
+    type: RESET_DECKS,
+    decks: {}
+  }
+}
 
 export function loadDecks (decks) {
   return {
@@ -27,7 +35,6 @@ export function initialLoadDecks () {
 
 export function addCardToDeck(deckTitle, newQuestion){
   return (dispatch, getState) => {
-
   	const copiedDecks = JSON.parse(JSON.stringify(getState().decks)); 
   	copiedDecks[deckTitle].questions.push(newQuestion);
     return setDecks(copiedDecks)
@@ -46,5 +53,14 @@ export function addDeck(deckTitle){
     return setDecks(copiedDecks)
         .then(() => { dispatch(savedModifiedDecks(copiedDecks) ) } )
         .catch((error) => { console.log(error) } )
+  }  
+}
+
+export function resetDecks(){
+  console.log("resetDecks")
+  return (dispatch, getState) => {
+    return clearAllData()
+      .then(() => { dispatch(resetStoreDecks()) } )
+      .catch((error) => { console.log(error) } )
   }  
 }

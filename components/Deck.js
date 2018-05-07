@@ -25,7 +25,6 @@ export default function Deck (deckObject) {
   const { deck } = deckObject;
   return (
     <View style={styles.metric} key={deck.title}>
-
         <View style={[styles.iconContainer, {backgroundColor: red}]}>
           <MaterialIcons
             name='card-travel' //card-travel

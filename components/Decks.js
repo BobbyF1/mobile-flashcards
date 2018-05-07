@@ -2,10 +2,10 @@ import React, { Component } from 'react'
 import { ScrollView, View, Text, StyleSheet, Platform, TouchableOpacity } from 'react-native'
 import { connect } from 'react-redux'
 import { AppLoading } from 'expo'
-import { initialLoadDecks } from '../actions/'
+import { resetDecks, initialLoadDecks } from '../actions/'
 import { white, black, red  } from '../utils/colors'
 import Deck from './Deck'
-import { setDecks, saveDeckTitle } from '../utils/api'
+import { saveDeckTitle } from '../utils/api'
 
 class Decks extends Component {
 
@@ -13,27 +13,38 @@ class Decks extends Component {
 		this.props.initialDataLoad()
 	}
 
-	reset = () =>
-	{
-		setDecks({})
-		  saveDeckTitle("TestDeck")
-		  saveDeckTitle("TestDeckNo2")
-		  saveDeckTitle("Another List of Questions")
+	reset = () =>{
+		this.props.resetDecks()
 	}
 
 	handleNewDeck = () => {
-		console.log("handleNewDeck")
 		this.props.navigation.navigate( 'NewDeckView')
 	}
 
 	render(){
 
-		const {decks} = this.props
+		const {decks, ready} = this.props
+
+	    if (ready === false) {
+	      return <AppLoading />
+	    }
 
 		return (
 			<ScrollView>
+				<View style={styles.row}>
+				    <TouchableOpacity
+				      style={[styles.submitBtn, {backgroundColor: red}]}
+				      onPress={this.reset}>
+				        <Text style={[styles.submitBtnText, {color: white}]}>Reset</Text>
+				    </TouchableOpacity>  
+				    <TouchableOpacity
+				      style={[styles.submitBtn, {backgroundColor: red}]}
+				      onPress={this.handleNewDeck}>
+				        <Text style={[styles.submitBtnText, {color: white}]}>New Deck</Text>
+				    </TouchableOpacity>  
+				</View>				
 				<View style={styles.item} >
-					{decks && decks.map( (deck) => {
+					{decks && decks.length > 0 && decks.map( (deck) => {
 						return (
 							<TouchableOpacity key={deck.title}
 					            onPress={() => this.props.navigation.navigate(
@@ -45,22 +56,9 @@ class Decks extends Component {
 					        </TouchableOpacity>
 						)
 					})}
-
-					    <TouchableOpacity
-					      onPress={this.reset}
-					      >
-					        <Text>Reset</Text>
-					    </TouchableOpacity>  
-
+					{ this.props.ready && decks.length===0 ? <Text>There's nothing here! Add a Deck and start learning!</Text> : null  }
 				</View>
-				<View>
-				    <TouchableOpacity
-				      style={[styles.submitBtn, {backgroundColor: red}]}
-				      onPress={this.handleNewDeck}
-				      >
-				        <Text style={[styles.submitBtnText, {color: white}]}>New Deck</Text>
-				    </TouchableOpacity>  
-				</View>
+
 			</ScrollView>
 		)
 	}
@@ -95,17 +93,32 @@ const styles = StyleSheet.create({
 		justifyContent: 'center',
 		alignItems: 'center',
 	},
+    row: {
+    flexDirection: 'row',
+    marginTop: 5,
+    marginRight: 10,
+	alignSelf: 'flex-end',
+  },
 })
 
 function mapStateToProps (state, { navigation }) {
+
+	console.log("mapStateToProps")
+
+	if (state.decks == null) state.decks = {}
+
     return {
-    	decks: Object.values(state.decks)
+    	decks:  state.decks
+	    	? Object.values(state.decks) 
+	    	: {},
+	    ready: state.ready ? state.ready : false
     }
 }
 
 function mapDispatchToProps (dispatch, { navigation }) {
     return {
-    	initialDataLoad: () => dispatch(initialLoadDecks())
+    	initialDataLoad: () => dispatch(initialLoadDecks()),
+    	resetDecks: () => dispatch(resetDecks())
     }
 }
 
