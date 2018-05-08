@@ -1,7 +1,7 @@
 import React from 'react'
 import { View, StyleSheet, Text } from 'react-native'
 import { gray, white, red  } from '../utils/colors'
-import { MaterialIcons  } from '@expo/vector-icons'
+import { MaterialCommunityIcons  } from '@expo/vector-icons'
 
 const styles = StyleSheet.create({
   iconContainer: {
@@ -26,8 +26,7 @@ export default function Deck (deckObject) {
   return (
     <View style={styles.metric} key={deck.title}>
         <View style={[styles.iconContainer, {backgroundColor: red}]}>
-          <MaterialIcons
-            name='card-travel' //card-travel
+          <MaterialCommunityIcons name='cards-outline' 
             color={white}
             size={35}
           />

@@ -1,28 +1,37 @@
 import React, { Component } from 'react'
-import { View, Text, StyleSheet, Platform, TouchableOpacity } from 'react-native'
+import { Animated, View, Text, StyleSheet, Platform, TouchableOpacity } from 'react-native'
 import { connect } from 'react-redux'
 import { gray, white, red, purple, black } from '../utils/colors'
 
 class DeckView extends Component {
 
+  state = {
+    fadeAnim: new Animated.Value(0),  // Initial value for opacity: 0
+  }
+
+  componentDidMount() {
+    Animated.timing( this.state.fadeAnim, { toValue: 1,  duration: 2000, }).start();     
+  }
+
 	static navigationOptions = ({ navigation }) => {
 		const { entryDeck } = navigation.state.params
-
 		return {
 			title: entryDeck
 		}
 	}
 
 	render(){
+    let { fadeAnim } = this.state;
 		return(
-			<View style={styles.column}>
+    <Animated.View style={[styles.column, {opacity: fadeAnim}]}>      
+      <View style={styles.column}>
 				<View style={styles.item}>
 					<Text style={{fontSize: 32}}>{this.props.deck && this.props.deck.title}</Text>
 					<Text style={{fontSize: 16, color: gray}}>{this.props.deck 
                 ? this.props.deck.questions.length + " card" +  (this.props.deck.questions.length !== 1 ? "s" : "")
                 : "0 cards" }</Text>
 				</View>
-	            <View>
+        <View>
 				    <TouchableOpacity
 				      	style={[styles.submitBtn, {backgroundColor: white}]}
 		            	onPress={this.onAddCard} >
@@ -30,12 +39,14 @@ class DeckView extends Component {
 				    </TouchableOpacity> 
             { this.props.deck.questions.length > 0 &&       	
   				    <TouchableOpacity
-  				      style={[styles.submitBtn, {backgroundColor: black}]}
-  				      onPress={this.onStartQuiz} >
-  				        <Text style={[styles.submitBtnText, {color: white}]}>Start Quiz</Text>
-  				    </TouchableOpacity> }
-	            </View>
-	        </View>
+  				        style={[styles.submitBtn, {backgroundColor: black}]}
+  				        onPress={this.onStartQuiz} >
+  				          <Text style={[styles.submitBtnText, {color: white}]}>Start Quiz</Text>
+  				    </TouchableOpacity> 
+            }
+	      </View>
+	    </View>
+    </Animated.View>
 		)
 	}
 
@@ -48,8 +59,6 @@ class DeckView extends Component {
 	}
 
 }
-
-
 
 const styles = StyleSheet.create({
   item: {
@@ -91,7 +100,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   })
-
 
 function mapStateToProps (state, { navigation }) {
 

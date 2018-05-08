@@ -102,11 +102,7 @@ const styles = StyleSheet.create({
 })
 
 function mapStateToProps (state, { navigation }) {
-
-	console.log("mapStateToProps")
-
 	if (state.decks == null) state.decks = {}
-
     return {
     	decks:  state.decks
 	    	? Object.values(state.decks) 
@@ -122,6 +118,4 @@ function mapDispatchToProps (dispatch, { navigation }) {
     }
 }
 
-export default connect(
-    mapStateToProps,mapDispatchToProps
-)(Decks)
+export default connect( mapStateToProps,mapDispatchToProps )(Decks)
