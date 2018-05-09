@@ -23,13 +23,13 @@ class QuizView extends Component {
 		}
 	}
 
-	  onDone = () => {
-	    this.props.navigation.dispatch(NavigationActions.reset
-	    	({index: 0,
-	    		actions: [NavigationActions.navigate({ routeName: 'Home' })]
-	    	})
-	    	)
-	  }
+	onDone = () => {
+		this.props.navigation.dispatch(NavigationActions.reset
+			({index: 0,
+				actions: [NavigationActions.navigate({ routeName: 'Home' })]
+			})
+		)
+	}
 
 	answeredCorrectly = () => {
 		this.setState( { correct: this.state.correct + 1,
@@ -85,7 +85,7 @@ class QuizView extends Component {
 					<TouchableOpacity
 				      	style={[styles.submitBtn, {backgroundColor: red}]}
 		            	onPress={this.onDone} >
-				        <Text style={styles.submitBtnText}>Done</Text>
+				        <Text>Done</Text>
 				    </TouchableOpacity> 
 				    </View>
 		    </View>
@@ -140,13 +140,4 @@ function mapStateToProps (state, { navigation }) {
   }
 }
 
-function mapDispatchToProps (dispatch, { navigation }) {
-  return {
-  }
-
-}
-
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps,
-)(QuizView)
+export default connect(mapStateToProps, null)(QuizView)

@@ -24,23 +24,21 @@ class Decks extends Component {
 	render(){
 
 		const {decks, ready} = this.props
-
 	    if (ready === false) {
 	      return <AppLoading />
 	    }
-
 		return (
 			<ScrollView>
 				<View style={styles.row}>
 				    <TouchableOpacity
 				      style={[styles.submitBtn, {backgroundColor: red}]}
 				      onPress={this.reset}>
-				        <Text style={[styles.submitBtnText, {color: white}]}>Reset</Text>
+				        <Text style= {{color: white}}>Reset</Text>
 				    </TouchableOpacity>  
 				    <TouchableOpacity
 				      style={[styles.submitBtn, {backgroundColor: red}]}
 				      onPress={this.handleNewDeck}>
-				        <Text style={[styles.submitBtnText, {color: white}]}>New Deck</Text>
+				        <Text style={{color: white}}>New Deck</Text>
 				    </TouchableOpacity>  
 				</View>				
 				<View style={styles.item} >
@@ -58,27 +56,26 @@ class Decks extends Component {
 					})}
 					{ this.props.ready && decks.length===0 ? <Text>There's nothing here! Add a Deck and start learning!</Text> : null  }
 				</View>
-
 			</ScrollView>
 		)
 	}
 }
 
 const styles = StyleSheet.create({
-  item: {
-    backgroundColor: white,
-    borderRadius: 2,
-    padding: 20,
-    marginLeft: 10,
-    marginRight: 10,
-    marginTop: 17,
-    justifyContent: 'center',
-    shadowRadius: 3,
-    shadowOpacity: 0.8,
-    shadowColor: 'rgba(0, 0, 0, 0.24)',
-    shadowOffset: {
-      width: 0,
-      height: 3
+	item: {
+	    backgroundColor: white,
+	    borderRadius: 2,
+	    padding: 20,
+	    marginLeft: 10,
+	    marginRight: 10,
+	    marginTop: 17,
+	    justifyContent: 'center',
+	    shadowRadius: 3,
+	    shadowOpacity: 0.8,
+	    shadowColor: 'rgba(0, 0, 0, 0.24)',
+	    shadowOffset: {
+	      width: 0,
+	      height: 3
     	}
 	},
 	submitBtn: {
@@ -94,11 +91,11 @@ const styles = StyleSheet.create({
 		alignItems: 'center',
 	},
     row: {
-    flexDirection: 'row',
-    marginTop: 5,
-    marginRight: 10,
-	alignSelf: 'flex-end',
-  },
+	    flexDirection: 'row',
+	    marginTop: 5,
+	    marginRight: 10,
+		alignSelf: 'flex-end',
+  	},
 })
 
 function mapStateToProps (state, { navigation }) {

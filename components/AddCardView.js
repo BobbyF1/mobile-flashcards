@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { View, Text, StyleSheet, Platform, TouchableOpacity } from 'react-native'
+import { View, Text, StyleSheet, TouchableOpacity } from 'react-native'
 import { connect } from 'react-redux'
 import { gray, white, red, purple, black } from '../utils/colors'
 import t from 'tcomb-form-native';
@@ -14,7 +14,6 @@ const formData = t.struct({
 const Form = t.form.Form;
 
 class AddCardView extends Component {
-
 	handleSubmit = () => {
 		const value = this._form.getValue(); // use that ref to get the form value
 		if(value && value.question &&  value.answer){
@@ -24,9 +23,9 @@ class AddCardView extends Component {
 		}
 	}
 
-  toHome = () => {
-    this.props.navigation.dispatch(NavigationActions.back({key: null}))
-  }
+	toHome = () => {
+		this.props.navigation.dispatch(NavigationActions.back({key: null}))
+	}
 
 	static navigationOptions = ({ navigation }) => {
 		const { entryDeck } = navigation.state.params
@@ -41,14 +40,12 @@ class AddCardView extends Component {
 	        <Form
 	        	ref={c => this._form = c} 
 	        	type={formData} /> 
-
 				    <TouchableOpacity
 				      style={[styles.submitBtn, {backgroundColor: black}]}
 				      onPress={this.handleSubmit}
 				      >
-				        <Text style={[styles.submitBtnText, {color: white}]}>Submit</Text>
+				        <Text style={{color: white}}>Submit</Text>
 				    </TouchableOpacity>  
-
 	      </View>
 		)
 	}
@@ -60,13 +57,6 @@ const styles = StyleSheet.create({
 		marginTop: 50,
 		padding: 20,
 		backgroundColor: white,
-	},
-	paragraph: {
-		margin: 24,
-		fontSize: 18,
-		fontWeight: 'bold',
-		textAlign: 'center',
-		color: purple
 	},
 	submitBtn: {
 		padding: 10,
@@ -92,10 +82,6 @@ function mapDispatchToProps (dispatch, { navigation }) {
   return {
   	addCardToDeck: (title, newQuestion) => dispatch(addCardToDeck(title, newQuestion))
   }
-
 }
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps,
-)(AddCardView)
+export default connect(mapStateToProps, mapDispatchToProps)(AddCardView)

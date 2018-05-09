@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { View, Text, StyleSheet, Platform, TouchableOpacity } from 'react-native'
+import { View, Text, StyleSheet, TouchableOpacity } from 'react-native'
 import { connect } from 'react-redux'
 import { gray, white, red, purple, black } from '../utils/colors'
 import t from 'tcomb-form-native';
@@ -21,9 +21,9 @@ class NewDeckView extends Component {
 		}
 	}
 
-  toHome = () => {
-    this.props.navigation.dispatch(NavigationActions.back({key: null}))
-  }
+	toHome = () => {
+		this.props.navigation.dispatch(NavigationActions.back({key: null}))
+	}
 
 	handleSubmit = () => {
 		const value = this._form.getValue(); // use that ref to get the form value
@@ -43,7 +43,7 @@ class NewDeckView extends Component {
 				      style={[styles.submitBtn, {backgroundColor: black}]}
 				      onPress={this.handleSubmit}
 				      >
-				        <Text style={[styles.submitBtnText, {color: white}]}>Submit</Text>
+				        <Text style={{color: white}}>Submit</Text>
 				    </TouchableOpacity>  
 	      </View>
 		)
@@ -56,13 +56,6 @@ const styles = StyleSheet.create({
 		marginTop: 50,
 		padding: 20,
 		backgroundColor: white,
-	},
-	paragraph: {
-		margin: 24,
-		fontSize: 18,
-		fontWeight: 'bold',
-		textAlign: 'center',
-		color: purple
 	},
 	submitBtn: {
 		padding: 10,
@@ -80,10 +73,6 @@ function mapDispatchToProps (dispatch, { navigation }) {
   return {
   	saveNewDeck: (title) => dispatch(addDeck(title ))
   }
-
 }
 
-export default connect(
-  null,
-  mapDispatchToProps,
-)(NewDeckView)
+export default connect(null, mapDispatchToProps)(NewDeckView)

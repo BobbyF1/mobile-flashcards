@@ -1,5 +1,5 @@
 import React , { Component } from 'react';
-import { Text, View, TouchableOpacity, StatusBar } from 'react-native';
+import { Text, View, StatusBar } from 'react-native';
 import { purple, white } from './utils/colors'
 import decks from './reducers'
 import { Provider } from 'react-redux'
@@ -63,7 +63,6 @@ const Tabs = TabNavigator({
     }
   }
 })
-
 
 const MainNavigator = StackNavigator({
   Home: {

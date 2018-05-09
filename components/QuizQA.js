@@ -55,20 +55,11 @@ const styles = StyleSheet.create({
       justifyContent: 'center',
       alignItems: 'center',
     },
-      container: {
-      padding: 5,
-      borderRadius: 8,
-      justifyContent: 'center',
-      alignItems: 'center',
-      marginRight: 20
+    buttonRow: {
+      flexDirection: 'row',
+      marginTop: 5
   },
-
-  buttonRow: {
-    flexDirection: 'row',
-    marginTop: 5
-  },
-
-  })
+})
 
 class QuizQA extends Component {
 
@@ -87,10 +78,9 @@ class QuizQA extends Component {
       <View style={styles.questionView}>
         <Text> Q {this.props.questionNumber} / {this.props.questions} </Text>
         <Text style={styles.QAText}>
-          { this.state.display==="question" ?
-            this.props.question
-          :
-          this.props.answer
+          { this.state.display==="question"
+            ? this.props.question
+            : this.props.answer
           }
         </Text>
         { this.state.display==="question" 
@@ -121,7 +111,4 @@ class QuizQA extends Component {
   }
 }
 
-export default connect(
-  null,
-  null,
-)(QuizQA)
+export default connect()(QuizQA)

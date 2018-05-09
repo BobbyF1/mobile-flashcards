@@ -13,8 +13,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     marginRight: 20
   },
-
-    metric: {
+    row: {
     flexDirection: 'row',
     marginTop: 5
   },
@@ -24,14 +23,13 @@ const styles = StyleSheet.create({
 export default function Deck (deckObject) {
   const { deck } = deckObject;
   return (
-    <View style={styles.metric} key={deck.title}>
+    <View style={styles.row} key={deck.title}>
         <View style={[styles.iconContainer, {backgroundColor: red}]}>
           <MaterialCommunityIcons name='cards-outline' 
             color={white}
             size={35}
           />
         </View>
-
         <View key={deck.title}>
           <View>
             <Text style={{fontSize: 20}}>

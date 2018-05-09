@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
-import { Animated, View, Text, StyleSheet, Platform, TouchableOpacity } from 'react-native'
+import { Animated, View, Text, StyleSheet, TouchableOpacity } from 'react-native'
 import { connect } from 'react-redux'
-import { gray, white, red, purple, black } from '../utils/colors'
+import { gray, white, red, black } from '../utils/colors'
 
 class DeckView extends Component {
 
@@ -35,13 +35,13 @@ class DeckView extends Component {
 				    <TouchableOpacity
 				      	style={[styles.submitBtn, {backgroundColor: white}]}
 		            	onPress={this.onAddCard} >
-				        <Text style={styles.submitBtnText}>Add Card</Text>
+				        <Text>Add Card</Text>
 				    </TouchableOpacity> 
             { this.props.deck.questions.length > 0 &&       	
   				    <TouchableOpacity
   				        style={[styles.submitBtn, {backgroundColor: black}]}
   				        onPress={this.onStartQuiz} >
-  				          <Text style={[styles.submitBtnText, {color: white}]}>Start Quiz</Text>
+  				          <Text style={{color: white}}>Start Quiz</Text>
   				    </TouchableOpacity> 
             }
 	      </View>
@@ -57,7 +57,6 @@ class DeckView extends Component {
 	onStartQuiz = () =>{
     this.props.navigation.navigate('QuizView',{ entryDeck: this.props.deck.title })
 	}
-
 }
 
 const styles = StyleSheet.create({
@@ -78,11 +77,6 @@ const styles = StyleSheet.create({
       height: 3
     },
   },
-  row: {
-    flexDirection: 'row',
-    flex: 1,
-    alignItems: 'center',
-  },  
   column: {
     flexDirection: 'column',
     flex: 1,
