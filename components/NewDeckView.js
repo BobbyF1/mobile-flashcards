@@ -39,14 +39,12 @@ class NewDeckView extends Component {
 	        <Form
 	        	ref={c => this._form = c} 
 	        	type={formData} /> 
-
 				    <TouchableOpacity
 				      style={[styles.submitBtn, {backgroundColor: black}]}
 				      onPress={this.handleSubmit}
 				      >
 				        <Text style={[styles.submitBtnText, {color: white}]}>Submit</Text>
 				    </TouchableOpacity>  
-
 	      </View>
 		)
 	}

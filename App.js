@@ -13,6 +13,7 @@ import { TabNavigator, StackNavigator } from 'react-navigation'
 import thunk from 'redux-thunk';
 import AddCardView from './components/AddCardView'
 import QuizView from './components/QuizView'
+import { setLocalNotification, clearLocalNotification } from './utils/helpers'
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
@@ -39,8 +40,8 @@ const Tabs = TabNavigator({
   home: {
     screen: Decks,
     navigationOptions: {
-    tabBarLabel: 'Decks',
-    tabBarIcon: ({ tintColor }) => <Ionicons name='ios-bookmarks' size={30} color={tintColor} />
+      tabBarLabel: 'Decks',
+      tabBarIcon: ({ tintColor }) => <Ionicons name='ios-bookmarks' size={30} color={tintColor} />
     },
   }
 }, {
@@ -107,6 +108,10 @@ const MainNavigator = StackNavigator({
 })
 
 export default class App extends Component {
+  componentDidMount(){
+    clearLocalNotification()
+    setLocalNotification()
+  }
   render() {
     return (
       <Provider store={store}>

@@ -7,6 +7,7 @@ import { addCardToDeck } from '../actions'
 import { NavigationActions } from 'react-navigation'
 import { addDeck } from '../actions'
 import QuizQA from './QuizQA'
+import { setLocalNotification, clearLocalNotification } from '../utils/helpers'
 
 class QuizView extends Component {
 
@@ -22,23 +23,38 @@ class QuizView extends Component {
 		}
 	}
 
-  onDone = () => {
-    this.props.navigation.dispatch(NavigationActions.reset
-    	({index: 0,
-    		actions: [NavigationActions.navigate({ routeName: 'Home' })]
-    	})
-    	)
-  }
+	  onDone = () => {
+	    this.props.navigation.dispatch(NavigationActions.reset
+	    	({index: 0,
+	    		actions: [NavigationActions.navigate({ routeName: 'Home' })]
+	    	})
+	    	)
+	  }
 
 	answeredCorrectly = () => {
 		this.setState( { correct: this.state.correct + 1,
-					questionNo: this.state.questionNo + 1})
-	}
+						questionNo: this.state.questionNo + 1},
+					() => {
+						if(this.state.questionNo > this.props.deck.questions.length){
+							this.resetNotificationToTomorrow()
+						}						
+					})
+			}
 
 	answeredIncorrectly = () => {
-		this.setState( {questionNo: this.state.questionNo + 1})
-	}
+		this.setState( {questionNo: this.state.questionNo + 1}, 
+			() => {
+				if(this.state.questionNo > this.props.deck.questions.length){
+					this.resetNotificationToTomorrow()
+				}					
+			})
+		}
 
+	//finished a quiz - so reset the alert notification to tomorrow
+	resetNotificationToTomorrow(){
+		clearLocalNotification();
+		setLocalNotification();
+	}
 
 	render(){
 		return (
@@ -80,8 +96,6 @@ class QuizView extends Component {
 }
 
 const styles = StyleSheet.create({
-
-
   item: {
   	height: 100,
     backgroundColor: white,
