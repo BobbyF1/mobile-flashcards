@@ -10,6 +10,8 @@ Tested on Android on Genymotion
 
 To install:
 
+	git clone https://github.com/BobbyF1/mobile-flashcards.git
+
 	npm install
 	npm run android
 
