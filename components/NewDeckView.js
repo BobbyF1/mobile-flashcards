@@ -15,20 +15,32 @@ const Form = t.form.Form;
 
 class NewDeckView extends Component {
 
+	state = {
+		justCreatedDeck: ""
+	}
+
 	static navigationOptions = ({ navigation }) => {
 		return {
 			title: 'New Deck'
 		}
 	}
 
-	toHome = () => {
-		this.props.navigation.dispatch(NavigationActions.back({key: null}))
-	}
+	static getDerivedStateFromProps(nextProps, prevState) {
+		if(prevState.justCreatedDeck !== "" && nextProps.decks[prevState.justCreatedDeck]){
+			//Our new deck has been successfully saved - i.e. it's in the store now. 
+			//So let's navigate "back" and then to its Deck view - this is the best way I've found to do
+			//this navigation without the UI tying itself in confusing navigation knots...
+			nextProps.navigation.dispatch(NavigationActions.back({key: null}))
+			nextProps.navigation.navigate('DeckView', { entryDeck: prevState.justCreatedDeck } )
+		}
+		return null; //no change to the state is necessary
+	  }
+
 
 	handleSubmit = () => {
 		const value = this._form.getValue(); // use that ref to get the form value
 		if(value && value["Name Of Deck"]){
-			this.toHome()
+			this.setState({ justCreatedDeck: value["Name Of Deck"]})
 			this.props.saveNewDeck(value["Name Of Deck"])
 		}
 	}
@@ -75,4 +87,10 @@ function mapDispatchToProps (dispatch, { navigation }) {
   }
 }
 
-export default connect(null, mapDispatchToProps)(NewDeckView)
+function mapStateToProps (state, { navigation }) {
+    return {
+    	decks: state.decks
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(NewDeckView)

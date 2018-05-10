@@ -24,7 +24,8 @@ class AddCardView extends Component {
 	}
 
 	toHome = () => {
-		this.props.navigation.dispatch(NavigationActions.back({key: null}))
+//		this.props.navigation.dispatch(NavigationActions.back({key: null}))
+		this.props.navigation.navigate('DeckView', { entryDeck: this.props.deck.title } )
 	}
 
 	static navigationOptions = ({ navigation }) => {

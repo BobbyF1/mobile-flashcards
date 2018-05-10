@@ -57,7 +57,6 @@ export function addDeck(deckTitle){
 }
 
 export function resetDecks(){
-  console.log("resetDecks")
   return (dispatch, getState) => {
     return clearAllData()
       .then(() => { dispatch(resetStoreDecks()) } )

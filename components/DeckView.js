@@ -10,6 +10,7 @@ class DeckView extends Component {
   }
 
   componentDidMount() {
+    console.log("componentDidMountcomponentDidMountcomponentDidMountcomponentDidMountcomponentDidMount")
     Animated.timing( this.state.fadeAnim, { toValue: 1,  duration: 2000, }).start();     
   }
 
@@ -51,6 +52,7 @@ class DeckView extends Component {
 	}
 
 	onAddCard = () => {
+    this.setState({fadeAnim: new Animated.Value(0)})
 		this.props.navigation.navigate('AddCardView',{ entryDeck: this.props.deck.title })
 	}
 
