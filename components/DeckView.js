@@ -2,6 +2,8 @@ import React, { Component } from 'react'
 import { Animated, View, Text, StyleSheet, TouchableOpacity } from 'react-native'
 import { connect } from 'react-redux'
 import { gray, white, red, black } from '../utils/colors'
+import { NavigationActions } from 'react-navigation'
+
 
 class DeckView extends Component {
 
@@ -10,7 +12,6 @@ class DeckView extends Component {
   }
 
   componentDidMount() {
-    console.log("componentDidMountcomponentDidMountcomponentDidMountcomponentDidMountcomponentDidMount")
     Animated.timing( this.state.fadeAnim, { toValue: 1,  duration: 2000, }).start();     
   }
 
@@ -20,6 +21,14 @@ class DeckView extends Component {
 			title: entryDeck
 		}
 	}
+
+  onDone = () => {
+    this.props.navigation.dispatch(NavigationActions.reset
+      ({index: 0,
+        actions: [NavigationActions.navigate({ routeName: 'Home' })]
+      })
+    )
+  }
 
 	render(){
     let { fadeAnim } = this.state;
@@ -45,6 +54,11 @@ class DeckView extends Component {
   				          <Text style={{color: white}}>Start Quiz</Text>
   				    </TouchableOpacity> 
             }
+            <TouchableOpacity
+                style={[styles.submitBtn, {backgroundColor: red}]}
+                  onPress={this.onDone} >
+                <Text style={{color: white}}>Done</Text>
+            </TouchableOpacity> 
 	      </View>
 	    </View>
     </Animated.View>
@@ -90,7 +104,9 @@ const styles = StyleSheet.create({
     paddingLeft: 30,
     paddingRight: 30,
     height: 45,
+    width: 140,
     borderRadius: 2,
+    marginTop: 10, 
     alignSelf: 'flex-end',
     justifyContent: 'center',
     alignItems: 'center',
@@ -105,15 +121,4 @@ function mapStateToProps (state, { navigation }) {
   }
 }
 
-function mapDispatchToProps (dispatch, { navigation }) {
-  const { entryDeck } = navigation.state.params
-
-  return {
-  }
-
-}
-
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps,
-)(DeckView)
+export default connect( mapStateToProps, null )(DeckView)
