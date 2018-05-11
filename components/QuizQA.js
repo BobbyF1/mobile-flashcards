@@ -18,7 +18,8 @@ const styles = StyleSheet.create({
     QAText: {
       fontSize: 30, 
       marginTop: 20,
-      textAlign: 'center'
+      textAlign: 'center',
+      color: black,
     },
     questionView: {
         display: 'flex',

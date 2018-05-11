@@ -1,17 +1,21 @@
-This project was bootstrapped with [Create React Native App](https://github.com/react-community/create-react-native-app).
+Synopsis:
 
-I have been unable to get a Permission alert to display on the Genymotion sumulator. It always returns true. The notification does however appear as expected.
-
-I've left a "Reset" button on the main screen to make testing easier. It will clear all decks from storage WITHOUT CONFIRMATION.
-
-There is no validation on Deck name, so "creating" an existing one will remove its cards.
-
-Tested on Google Nexus 5X - 7.1.0 - API 25 on Genymotion
+	This is a "Flashcards" app for use on mobile devices. Users can define decks, each containing a set of questions, and run a quiz on each deck to learn the contents. 
 
 To install:
 
 	git clone https://github.com/BobbyF1/mobile-flashcards.git
-
 	npm install
+
+To execute:
+
 	npm run android
+
+Testing:
+
+	Tested on Google Nexus 5X - 7.1.0 - API 25 running on Genymotion.
+
+Acknowledgements:
+
+	This project was bootstrapped with [Create React Native App](https://github.com/react-community/create-react-native-app).
 

@@ -14,6 +14,7 @@ import thunk from 'redux-thunk';
 import AddCardView from './components/AddCardView'
 import QuizView from './components/QuizView'
 import { setLocalNotification, clearLocalNotification } from './utils/helpers'
+import { Ionicons } from '@expo/vector-icons'
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 

@@ -23,12 +23,15 @@ class QuizView extends Component {
 		}
 	}
 
+	onRestart = () => {
+		this.setState({
+			questionNo: 1,
+			correct: 0
+		})
+	}
+
 	onDone = () => {
-		this.props.navigation.dispatch(NavigationActions.reset
-			({index: 0,
-				actions: [NavigationActions.navigate({ routeName: 'Home' })]
-			})
-		)
+		this.props.navigation.navigate('DeckView', { entryDeck: this.props.deckTitle } )
 	}
 
 	answeredCorrectly = () => {
@@ -62,8 +65,12 @@ class QuizView extends Component {
 	      	{ this.state.questionNo <= this.props.deck.questions.length 
 	      	?
 		      	<QuizQA 
-		      		question={this.props.deck.questions[this.state.questionNo - 1].question}
-		      		answer={this.props.deck.questions[this.state.questionNo - 1].answer}
+		      		question={this.state.questionNo <= this.props.deck.questions.length 
+		      					? this.props.deck.questions[this.state.questionNo - 1].question
+		      					: null}
+		      		answer={this.state.questionNo <= this.props.deck.questions.length 
+		      					? this.props.deck.questions[this.state.questionNo - 1].answer
+		      					: null}
 		      		answeredCorrectly={this.answeredCorrectly}
 		      		answeredIncorrectly={this.answeredIncorrectly}
 		      		questionNumber={this.state.questionNo}
@@ -78,15 +85,20 @@ class QuizView extends Component {
 								{this.props.deck && this.props.deck.title}
 						</Text>
 						<Text style={{fontSize: 16, color: gray}}>
-								{this.state.correct + " / " +  (this.props.deck.questions.length)}
+								{this.state.correct}/{this.props.deck.questions.length}
 	               		</Text>
 					</View>
-					<View>
-					<TouchableOpacity
-				      	style={[styles.submitBtn, {backgroundColor: red}]}
-		            	onPress={this.onDone} >
-				        <Text>Done</Text>
-				    </TouchableOpacity> 
+					<View style={{marginTop: 100}}>
+						<TouchableOpacity
+					      	style={[styles.submitBtn, {backgroundColor: red}]}
+			            	onPress={this.onDone} >
+					        <Text>Back to Deck</Text>
+					    </TouchableOpacity> 
+						<TouchableOpacity
+					      	style={[styles.submitBtn, {backgroundColor: red}]}
+			            	onPress={this.onRestart} >
+					        <Text>Restart Quiz</Text>
+					    </TouchableOpacity> 
 				    </View>
 		    </View>
 			}
@@ -123,12 +135,13 @@ const styles = StyleSheet.create({
     padding: 10,
     paddingLeft: 30,
     paddingRight: 30,
-    marginTop: 100,
     height: 45,
+    marginTop: 20,
     borderRadius: 2,
     alignSelf: 'flex-end',
     justifyContent: 'center',
     alignItems: 'center',
+    width: 200,
   },
 });
 
@@ -137,6 +150,7 @@ function mapStateToProps (state, { navigation }) {
   const { entryDeck } = navigation.state.params
   return {
     deck: state.decks[entryDeck],
+    deckTitle: entryDeck
   }
 }
 
